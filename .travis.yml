@@ -1,0 +1,25 @@
+# tell travis-ci that sudo is required
+sudo: required
+# a bit unclear why this is required:
+language: generic
+# tell travis-ci that we need a running instance of docker
+services:
+    - docker
+
+# tell travis-ci that before anything is really done
+# (e.g. running test etc.), we want to build our image
+# The image is tagged to have a stable identifier for it
+# Note: 
+# - the image has the name of the github repository
+#   this is not required; it could be any tag; the tag is only used within travis-ci
+#   so it could be -t hubbledibubble
+before_install:
+    - docker build -t vagandon/docker-react -f dockerfile.dev .
+
+# Now we tell travis-ci how to run the test-suite.
+# Note:
+# - with "-e CI=true" we are setting an environment variable CI to true
+# - this forces Jest to run in CI mode and execute tests only once 
+#   without entering the watch mode
+script:
+    - docker run -e CI=true vagandon/docker-react npm run test
