@@ -23,3 +23,27 @@ before_install:
 #   without entering the watch mode
 script:
     - docker run -e CI=true vagandon/docker-react npm run test
+
+# The deploy-information for travis-ci
+deploy:
+    # provider: travis-ci has a number of pre-configured providers, one
+    # of them is Elastic Beanstalk, hence we can directly identify it
+    provider: elasticbeanstalk
+    # region: look into the app-url provided by aws to identify the region
+    region: "eu-central-1"
+    # app and env: the name of the application and its environment as defined in aws
+    app: "docker-react"
+    env: "DockerReact-env"
+    # bucket_name: the S3 bucket where travis-ci can store the code
+    # - go to the S3 service in AWS to get the S3 bucket name
+    bucket_name: "elasticbeanstalk-eu-central-1-304092658149"
+    # bucket_path: the path of the folder inside the bucket to which travis should
+    # deploy the code
+    bucket_path: "docker-react"
+    # on: this specifies, which eventy cause travis-ci to deploy. Here, this should
+    # only be done when a merge into the master branch happens
+    on:
+        branch: master
+    # Credentials:
+    access_key_id: $Access_Key_ID
+    secret_access_key: $Secret_Access_Key
