@@ -20,6 +20,8 @@ function App() {
         </a>
         <p>
           Here I could write a poem. I could. If I could.
+          During the day, during the night
+          There is darkness, there is light
         </p>
       </header>
     </div>
