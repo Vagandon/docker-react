@@ -1,5 +1,7 @@
-# tell travis-ci that sudo is required
-sudo: required
+# the following tag is no longer required, i.e. "sudo" has been deprecated and should not longer be used
+# .. # tell travis-ci that sudo is required
+# .. sudo: required
+
 # a bit unclear why this is required:
 language: generic
 # tell travis-ci that we need a running instance of docker
